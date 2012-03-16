@@ -9,8 +9,6 @@
 package com.SySammy.triggercmds;
 
 import com.avaje.ebean.QueryIterator;
-import com.nijiko.permissions.PermissionHandler;
-import com.nijikokun.bukkit.Permissions.Permissions;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +28,6 @@ public class tCmds extends JavaPlugin {
     public HashMap<Player, String> iNames = new HashMap<Player, String>();
     public HashMap<Location, String> Cmds = new HashMap<Location, String>();
     private tListener playerListener = new tListener(this);
-    public PermissionHandler Permissions;
     private boolean UsePermissions;
 
     public static void main(String[] args) {
@@ -83,24 +80,9 @@ public class tCmds extends JavaPlugin {
         findIterate.close();
     }
 
-    private void setupPermissions() {
-        Plugin test = this.getServer().getPluginManager().getPlugin("Permissions");
-
-        if (this.Permissions == null) {
-            if (test != null) {
-                UsePermissions = true;
-                this.Permissions = ((Permissions) test).getHandler();
-                System.out.println("Permissions is enable for BrokenFingers.");
-            } else {
-                log.info("Permission system not detected, defaulting to OP");
-                UsePermissions = false;
-            }
-        }
-    }
-
     public boolean casUseTriggerCmds(Player p) {
         if (UsePermissions) {
-            return this.Permissions.has(p, "triggercmds");
+            return p.hasPermission("triggercmds");
         }
         return p.isOp();
     }
