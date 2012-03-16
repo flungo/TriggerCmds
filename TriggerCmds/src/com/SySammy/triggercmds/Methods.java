@@ -9,10 +9,8 @@
 package com.SySammy.triggercmds;
 
 import com.avaje.ebean.QueryIterator;
-import java.util.ArrayList;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 
 public class Methods {
@@ -132,21 +130,39 @@ public class Methods {
 
     public void ExecuteCmd(Player p, Location loc) {
         String[] InitCmds = plugin.Cmds.get(loc).split("&");
-        ArrayList<String> FinalCmds = new ArrayList<String>();
         Player sender;
         for (int x = 0; InitCmds.length > x; x++) {
             String[] MidCmd = InitCmds[x].split("/");
-            if (MidCmd.length > 2) {
-            	//TODO handler for if command is greater than 2 in length. 
-            }
-            if (MidCmd[0].equalsIgnoreCase("$me:")) {
-            	//sender = plugin.getServer().getPlayer();
-            	//TODO make commands that use the "$me:" runner work.
-            	return;
-            } else {
+            int l = MidCmd.length;
+            String cmd;
+            if (l == 0) {
             	sender = p;
+            	cmd = MidCmd[0];
+            } else if (l == 1) {
+                cmd = MidCmd[1];
+	            if (MidCmd[0].equalsIgnoreCase("$me:")) {
+	            	//TODO button setup wrong. Send message.
+	            	return;
+	            /*} else if (MidCmd[0].equalsIgnoreCase("$bot:")) {
+	            	sender = TcmdsBot(p);*/
+	            } else if(MidCmd[0].equalsIgnoreCase("$ply:")) {
+	            	sender = p;
+	            } else {
+	            	String username = MidCmd[0].replace(":", "");
+	            	sender = plugin.getServer().getPlayer(username);
+	            }
+            } else {
+            	//Something went wrong, send error!
+            	return;
             }
-            plugin.getServer().dispatchCommand(sender, MidCmd[1]);
+            if (cmd.contains("$ply")) {
+	            cmd = cmd.replace("$ply", p.getName());
+	        }
+	        if (sender == null) {
+	            p.sendMessage(ChatColor.RED + "The owner of that trigger isn't online at the moment.");
+	            return;
+	        }
+            plugin.getServer().dispatchCommand(sender, cmd);
         }
     }
 
