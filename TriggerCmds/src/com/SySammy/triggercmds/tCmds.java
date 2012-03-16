@@ -49,7 +49,6 @@ public class tCmds extends JavaPlugin {
         // setupPermissions();
         setupDatabase();
         EnableInteractions();
-        setupPermissions();
         log.log(Level.INFO, pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!");
     }
 
