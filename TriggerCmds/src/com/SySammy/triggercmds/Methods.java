@@ -12,6 +12,7 @@ import com.avaje.ebean.QueryIterator;
 import java.util.ArrayList;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 
 public class Methods {
@@ -104,7 +105,7 @@ public class Methods {
         return plugin.Cmds.containsKey(loc);
     }
 
-    /*public String GetCmds(String p, String[] arg) {
+    public String GetCmds(String p, String[] arg) {
     String cmd = "";
     for (int x = 1; x < arg.length; x++) {
     cmd = cmd + " " + arg[x];
@@ -119,7 +120,7 @@ public class Methods {
     replace = cmd;
     }
     return replace.trim();
-    }*/
+    }
     public void DelRegState(Player p) {
         if (!IsRegOn(p)) {
             p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "No edit function started" + ChatColor.GOLD + " ]");
@@ -132,12 +133,20 @@ public class Methods {
     public void ExecuteCmd(Player p, Location loc) {
         String[] InitCmds = plugin.Cmds.get(loc).split("&");
         ArrayList<String> FinalCmds = new ArrayList<String>();
-        Player sender = null;
+        Player sender;
         for (int x = 0; InitCmds.length > x; x++) {
             String[] MidCmd = InitCmds[x].split("/");
-            if (MidCmd[0].equalsIgnoreCase("$me:")) {
-            	sender = plugin.getServer().getPlayer()
+            if (MidCmd.length > 2) {
+            	//TODO handler for if command is greater than 2 in length. 
             }
+            if (MidCmd[0].equalsIgnoreCase("$me:")) {
+            	//sender = plugin.getServer().getPlayer();
+            	//TODO make commands that use the "$me:" runner work.
+            	return;
+            } else {
+            	sender = p;
+            }
+            plugin.getServer().dispatchCommand(sender, MidCmd[1]);
         }
     }
 
