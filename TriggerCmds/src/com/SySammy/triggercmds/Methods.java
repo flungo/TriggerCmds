@@ -136,16 +136,9 @@ public class Methods {
         for (int x = 0; InitCmds.length > x; x++) {
             String[] MidCmd = InitCmds[x].split("/");
             if (MidCmd[0].equalsIgnoreCase("$me:")) {
-               sender = plugin.getServer().getPlayer(
+            	sender = plugin.getServer().getPlayer()
             }
         }
-
-
-
-
-
-
-
     }
 
     /*  public Player TcmdsBot(Player p) {

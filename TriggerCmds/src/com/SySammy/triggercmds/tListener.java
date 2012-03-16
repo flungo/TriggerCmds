@@ -11,11 +11,12 @@ package com.SySammy.triggercmds;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerListener;
 
-class tListener extends PlayerListener {
+class tListener implements Listener {
 
     tCmds plugin;
     private Methods Methods;
@@ -24,7 +25,7 @@ class tListener extends PlayerListener {
         this.plugin = aThis;
     }
 
-    @Override
+    @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         if (event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
             if (event.getClickedBlock().getType().equals(Material.STONE_BUTTON) || event.getClickedBlock().getType().equals(Material.LEVER) || event.getClickedBlock().getType().equals(Material.STONE_PLATE) || event.getClickedBlock().getType().equals(Material.WOOD_PLATE)) {

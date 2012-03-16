@@ -19,7 +19,6 @@ import java.util.logging.Logger;
 import javax.persistence.PersistenceException;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
@@ -49,7 +48,7 @@ public class tCmds extends JavaPlugin {
         PluginDescriptionFile pdfFile = this.getDescription();
         PluginManager pm = getServer().getPluginManager();
         getCommand("tcmds").setExecutor(new Commands(this));
-        pm.registerEvent(Event.Type.PLAYER_INTERACT, this.playerListener, Event.Priority.Normal, this);
+        pm.registerEvents(playerListener, this);
         // setupPermissions();
         setupDatabase();
         EnableInteractions();
