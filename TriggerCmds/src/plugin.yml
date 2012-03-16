@@ -1,0 +1,17 @@
+name: TriggerCmds
+main: com.SySammy.triggercmds.tCmds
+version: 1.2
+author: SySammy
+database: true
+description: >
+             Execute Commands usings Triggers
+commands:
+  tcmds:
+    aliases: [triggercmds]
+    description: TriggerCmds management
+    usage: |          
+        /<command> list - List of your triggers.
+        /<command> edit [name] - Starts trigger edit.
+        /<command> cmd [cmd] - Command registration/modification.
+        /<command> del - Deletes the trigger. 
+        /<command> help - TriggerCmds Help Page.  
