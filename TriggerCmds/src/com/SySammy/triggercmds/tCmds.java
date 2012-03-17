@@ -27,7 +27,7 @@ public class tCmds extends JavaPlugin {
     public HashMap<Player, String> iNames = new HashMap<Player, String>();
     public HashMap<Location, String> Cmds = new HashMap<Location, String>();
     private tListener playerListener = new tListener(this);
-    private boolean UsePermissions;
+    private boolean UsePermissions = true;
 
     public static void main(String[] args) {
         // TODO code application logic here
