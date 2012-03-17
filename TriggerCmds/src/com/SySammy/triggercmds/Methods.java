@@ -105,6 +105,10 @@ public class Methods
   }
 
   public void DelRegState(Player p) {
+    if (!IsRegOn(p)) {
+      p.sendMessage(ChatColor.RED + "No edit function started.");
+      return;
+    }
     this.plugin.iNames.remove(p);
     p.sendMessage(ChatColor.GREEN + "Iteraction edit closed.");
   }
@@ -138,5 +142,17 @@ public class Methods
       p.sendMessage("");
     }
     findIterate.close();
+  }
+
+  public void delTrigger(Player p) {
+    if (!IsRegOn(p)) {
+      p.sendMessage(ChatColor.RED + "Please start the edit function first.");
+      return;
+    }
+    tReg plyReg = OpenDataBase(p.getName(), (String)this.plugin.iNames.get(p));
+    this.plugin.Cmds.remove(getLoc(p));
+    this.plugin.iNames.remove(p);
+    this.plugin.getDatabase().delete(tReg.class, Integer.valueOf(plyReg.getInteractionId()));
+    p.sendMessage(ChatColor.GREEN + "Trigger deleted.");
   }
 }

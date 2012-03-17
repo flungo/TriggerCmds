@@ -52,11 +52,15 @@ public class Commands
       }if (arg[0].equalsIgnoreCase("stop")) {
         this.Methods.DelRegState(p);
         return true;
+      }if (arg[0].equalsIgnoreCase("help"))
+        return false;
+      if (arg[0].equalsIgnoreCase("del")) {
+        this.Methods = new Methods(this.plugin);
+        this.Methods.delTrigger(p);
+        return true;
       }
-      return !arg[0].equalsIgnoreCase("help");
-    }
-    catch (Exception e)
-    {
+      return false;
+    } catch (Exception e) {
       p.sendMessage(ChatColor.RED + "Input error, please try again.");
     }return false;
   }
