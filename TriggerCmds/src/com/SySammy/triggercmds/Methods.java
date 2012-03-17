@@ -5,10 +5,16 @@ import com.avaje.ebean.ExpressionList;
 import com.avaje.ebean.Query;
 import com.avaje.ebean.QueryIterator;
 import java.util.HashMap;
+import net.minecraft.server.EntityPlayer;
+import net.minecraft.server.ItemInWorldManager;
+import net.minecraft.server.ServerConfigurationManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
+import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 public class Methods
@@ -40,13 +46,14 @@ public class Methods
   }
 
   public void RegEditInteraction(Player p, String iName) {
-    if (iNameExist(p.getName(), iName)) {
-      this.plugin.iNames.put(p, iName);
-      p.sendMessage(ChatColor.GREEN + "You are now editing your interaction: " + ChatColor.GOLD + iName);
+    if (IsRegOn(p)) {
+      p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "You're already editing a interaction" + ChatColor.GOLD + " ]");
       return;
     }
-    if (this.plugin.iNames.containsKey(p)) {
-      p.sendMessage(ChatColor.RED + "You're already editing a interaction.");
+    if (iNameExist(p.getName(), iName)) {
+      this.plugin.iNames.put(p, iName);
+      p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.GREEN + "Interaction Opened" + ChatColor.GOLD + " ]");
+      p.sendMessage(ChatColor.GREEN + "You are now editing: " + ChatColor.BLUE + iName);
       return;
     }
     tReg plyReg = OpenDataBase(p.getName(), iName);
@@ -54,13 +61,14 @@ public class Methods
     plyReg.setIntName(iName);
     this.plugin.getDatabase().save(plyReg);
     this.plugin.iNames.put(p, iName);
-    p.sendMessage(ChatColor.GREEN + "Interaction Registered.");
-    p.sendMessage(ChatColor.GREEN + "You are now editing: " + ChatColor.GOLD + iName);
+    p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.GREEN + "Interaction Registered" + ChatColor.GOLD + " ]");
+    p.sendMessage(ChatColor.GREEN + "You are now editing: " + ChatColor.BLUE + iName);
   }
 
-  public void RegCmd(Player p, String cmd) {
+  public void RegCmd(Player p, String cmd)
+  {
     if (!IsRegOn(p)) {
-      p.sendMessage(ChatColor.RED + "Please start the edit function first.");
+      p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "Please start the edit function first" + ChatColor.GOLD + " ]");
       return;
     }
     tReg plyReg = OpenDataBase(p.getName(), (String)this.plugin.iNames.get(p));
@@ -71,12 +79,13 @@ public class Methods
       Location loc = getLoc(p);
       this.plugin.Cmds.put(loc, plyReg.getCmd());
     }
-    p.sendMessage(ChatColor.GREEN + "Command saved to the database: " + ChatColor.GOLD + cmd);
+    p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.GREEN + "Details saved to the database: " + ChatColor.GOLD + " ]");
+    p.sendMessage(ChatColor.GREEN + "Command: " + ChatColor.BLUE + cmd);
   }
 
   public void RegLocation(Player p, Location loc) {
     if (!IsRegOn(p)) {
-      p.sendMessage(ChatColor.RED + "Please start the edit function first.");
+      p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "Please start the edit function first" + ChatColor.GOLD + " ]");
       return;
     }
     this.plugin.Cmds.remove(getLoc(p));
@@ -88,34 +97,83 @@ public class Methods
       plyReg.setZ(loc.getZ());
       this.plugin.getDatabase().save(plyReg);
       this.plugin.Cmds.put(loc, plyReg.getCmd());
-      p.sendMessage(ChatColor.GREEN + "Location saved to the database");
+      p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.GREEN + "Details saved to the database" + ChatColor.GOLD + " ]");
+      p.sendMessage(ChatColor.GREEN + "Location: " + ChatColor.BLUE + loc.getWorld().getName() + "[" + loc.getX() + "," + loc.getY() + "," + loc.getZ() + "]");
     }
+    DelRegState(p);
   }
 
   public boolean HasInteration(String p, Location loc) {
     return this.plugin.Cmds.containsKey(loc);
   }
 
-  public String GetCmds(String[] arg) {
+  public String GetCmds(String p, String[] arg) {
     String cmd = "";
     for (int x = 1; x < arg.length; x++) {
       cmd = cmd + " " + arg[x];
     }
-    return cmd.trim();
+    String replace = "";
+    if (cmd.contains("$me:")) {
+      replace = cmd.replace("$me:", p + ":");
+    }
+    if (cmd.contains("$me"))
+      replace = cmd.replace("$me", p);
+    else {
+      replace = cmd;
+    }
+    return replace.trim();
   }
 
   public void DelRegState(Player p) {
     if (!IsRegOn(p)) {
-      p.sendMessage(ChatColor.RED + "No edit function started.");
+      p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "No edit function started" + ChatColor.GOLD + " ]");
       return;
     }
     this.plugin.iNames.remove(p);
-    p.sendMessage(ChatColor.GREEN + "Iteraction edit closed.");
+    p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.GREEN + "Iteraction edit closed" + ChatColor.GOLD + " ]");
   }
 
   public void ExecuteCmd(Player p, Location loc) {
+    boolean isBot = false;
     String get = (String)this.plugin.Cmds.get(loc);
-    p.chat(get);
+    String filtedCmd = "";
+    Player sender = null;
+    String[] split = get.split("/", 2);
+    if (split.length == 1) {
+      sender = p;
+      filtedCmd = split[0];
+    } else if (split[0].equalsIgnoreCase("$ply:")) {
+      sender = p;
+      filtedCmd = split[1];
+    } else if (split[0].equalsIgnoreCase("$bot:")) {
+      sender = TcmdsBot(p);
+      filtedCmd = split[1];
+    } else {
+      sender = this.plugin.getServer().getPlayer(split[0].replace(":", ""));
+      filtedCmd = split[1];
+    }
+    if (get.contains("$ply")) {
+      filtedCmd = filtedCmd.replace("$ply", p.getName());
+    }
+    if (sender == null) {
+      p.sendMessage(ChatColor.RED + "The owner of that trigger isn't online at the moment.");
+      return;
+    }
+    sender.chat("/" + filtedCmd);
+  }
+
+  public Player TcmdsBot(Player p) {
+    CraftServer cServer = (CraftServer)this.plugin.getServer();
+    CraftWorld cWorld = (CraftWorld)p.getWorld();
+    EntityPlayer fakeEntityPlayer = new EntityPlayer(cServer.getHandle().server, cWorld.getHandle(), "tcmdsbot", new ItemInWorldManager(cWorld.getHandle()));
+
+    fakeEntityPlayer.netServerHandler = ((CraftPlayer)p).getHandle().netServerHandler;
+    Player TcmdsBot = (Player)fakeEntityPlayer.getBukkitEntity();
+    TcmdsBot.setDisplayName("tcmdsbot");
+    ((CraftPlayer)TcmdsBot).getHandle().name = "tcmdsbot";
+    TcmdsBot.saveData();
+    TcmdsBot.loadData();
+    return TcmdsBot;
   }
 
   public Location getLoc(Player p) {
@@ -129,15 +187,16 @@ public class Methods
 
   public void iList(Player p)
   {
+    p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.GREEN + "List of Triggers and Links" + ChatColor.GOLD + " ]");
     QueryIterator findIterate = this.plugin.getDatabase().find(tReg.class).where().ieq("PlayerName", p.getName()).findIterate();
     while (findIterate.hasNext()) {
       tReg plyReg = (tReg)findIterate.next();
-      p.sendMessage(ChatColor.GREEN + "Trigger Name: " + ChatColor.GOLD + plyReg.getIntName());
-      p.sendMessage(ChatColor.GREEN + "Command: " + ChatColor.GOLD + plyReg.getCmd());
+      p.sendMessage(ChatColor.GREEN + "Trigger Name: " + ChatColor.BLUE + plyReg.getIntName());
+      p.sendMessage(ChatColor.GREEN + "Command: " + ChatColor.BLUE + plyReg.getCmd());
       if (plyReg.getWorld() == null)
-        p.sendMessage(ChatColor.GREEN + "Location: " + ChatColor.RED + "Not yet placed.");
+        p.sendMessage(ChatColor.GREEN + "Location: " + ChatColor.BLUE + "Not yet placed.");
       else {
-        p.sendMessage(ChatColor.GREEN + "Location: " + ChatColor.GOLD + plyReg.getWorld() + ", [" + plyReg.getX() + "," + plyReg.getY() + "," + plyReg.getZ() + "]");
+        p.sendMessage(ChatColor.GREEN + "Location: " + ChatColor.BLUE + plyReg.getWorld() + "[" + plyReg.getX() + "," + plyReg.getY() + "," + plyReg.getZ() + "]");
       }
       p.sendMessage("");
     }
@@ -146,13 +205,26 @@ public class Methods
 
   public void delTrigger(Player p) {
     if (!IsRegOn(p)) {
-      p.sendMessage(ChatColor.RED + "Please start the edit function first.");
+      p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "Please start the edit function first" + ChatColor.GOLD + " ]");
       return;
     }
     tReg plyReg = OpenDataBase(p.getName(), (String)this.plugin.iNames.get(p));
     this.plugin.Cmds.remove(getLoc(p));
     this.plugin.iNames.remove(p);
     this.plugin.getDatabase().delete(tReg.class, Integer.valueOf(plyReg.getInteractionId()));
-    p.sendMessage(ChatColor.GREEN + "Trigger deleted.");
+    p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.GREEN + "Trigger deleted from the database" + ChatColor.GOLD + " ]");
+  }
+
+  public void delLink(Player p) {
+    if (!IsRegOn(p)) {
+      p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "Please start the edit function first" + ChatColor.GOLD + " ]");
+      return;
+    }
+    this.plugin.Cmds.remove(getLoc(p));
+    tReg plyReg = OpenDataBase(p.getName(), (String)this.plugin.iNames.get(p));
+    plyReg.setWorld(" ");
+    this.plugin.getDatabase().save(plyReg);
+    p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.GREEN + "Link deleted, your trigger no longer has a location" + ChatColor.GOLD + " ]");
+    DelRegState(p);
   }
 }

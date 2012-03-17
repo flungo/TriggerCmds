@@ -34,9 +34,12 @@ public class Commands
         p.sendMessage(ChatColor.RED + "You don't have permisson to use that command");
         return true;
       }
-      if (arg.length <= 0)
+      if (arg.length <= 0) {
+        p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.GREEN + "TriggerCmds Help Page" + ChatColor.GOLD + " ]");
+        p.sendMessage(ChatColor.GOLD + "LeftClick" + ChatColor.WHITE + " - Reg Trigger Link ");
+        p.sendMessage(ChatColor.GOLD + "RightClick" + ChatColor.WHITE + " - Del Trigger Link");
         return false;
-      if (arg[0].equalsIgnoreCase("list")) {
+      }if (arg[0].equalsIgnoreCase("list")) {
         this.Methods = new Methods(this.plugin);
         this.Methods.iList(p);
         return true;
@@ -46,22 +49,26 @@ public class Commands
         return true;
       }if (arg[0].equalsIgnoreCase("cmd")) {
         this.Methods = new Methods(this.plugin);
-        String GetCmds = this.Methods.GetCmds(arg);
+        String GetCmds = this.Methods.GetCmds(p.getName(), arg);
         this.Methods.RegCmd(p, GetCmds);
         return true;
-      }if (arg[0].equalsIgnoreCase("stop")) {
-        this.Methods.DelRegState(p);
-        return true;
-      }if (arg[0].equalsIgnoreCase("help"))
-        return false;
-      if (arg[0].equalsIgnoreCase("del")) {
+      }if (arg[0].equalsIgnoreCase("del")) {
         this.Methods = new Methods(this.plugin);
         this.Methods.delTrigger(p);
         return true;
+      }if (arg[0].equalsIgnoreCase("help")) {
+        p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.GREEN + "TriggerCmds Help Page" + ChatColor.GOLD + " ]");
+        p.sendMessage(ChatColor.GOLD + "LeftClick" + ChatColor.WHITE + " - Reg Trigger Link ");
+        p.sendMessage(ChatColor.GOLD + "RightClick" + ChatColor.WHITE + " - Del Trigger Link");
+        return false;
       }
+      p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.GREEN + "TriggerCmds Help Page" + ChatColor.GOLD + " ]");
+      p.sendMessage(ChatColor.GOLD + "LeftClick" + ChatColor.WHITE + " - Reg Trigger Link ");
+      p.sendMessage(ChatColor.GOLD + "RightClick" + ChatColor.WHITE + " - Del Trigger Link");
       return false;
     } catch (Exception e) {
       p.sendMessage(ChatColor.RED + "Input error, please try again.");
+      p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.GREEN + "TriggerCmds Help Page" + ChatColor.GOLD + " ]");
     }return false;
   }
 }
