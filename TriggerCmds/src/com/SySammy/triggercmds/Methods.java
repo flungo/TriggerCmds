@@ -127,8 +127,37 @@ public class Methods {
         plugin.iNames.remove(p);
         p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.GREEN + "Iteraction edit closed" + ChatColor.GOLD + " ]");
     }
-
+    
     public void ExecuteCmd(Player p, Location loc) {
+        String get = (String)this.plugin.Cmds.get(loc);
+        String filtedCmd = "";
+        Player sender = null;
+        String[] split = get.split("/", 2);
+        if (split.length == 1) {
+          sender = p;
+          filtedCmd = split[0];
+        } else if (split[0].equalsIgnoreCase("$ply:")) {
+          sender = p;
+          filtedCmd = split[1];
+        } else if (split[0].equalsIgnoreCase("$bot:")) {
+        	sender = p;
+          //sender = TcmdsBot(p);
+          filtedCmd = split[1];
+        } else {
+          sender = this.plugin.getServer().getPlayer(split[0].replace(":", ""));
+          filtedCmd = split[1];
+        }
+        if (get.contains("$ply")) {
+          filtedCmd = filtedCmd.replace("$ply", p.getName());
+        }
+        if (sender == null) {
+          p.sendMessage(ChatColor.RED + "The owner of that trigger isn't online at the moment.");
+          return;
+        }
+        sender.chat("/" + filtedCmd);
+      }
+
+    /*public void ExecuteCmd(Player p, Location loc) {
         String[] InitCmds = plugin.Cmds.get(loc).split("&");
         Player sender;
         for (int x = 0; InitCmds.length > x; x++) {
@@ -143,8 +172,8 @@ public class Methods {
 	            if (MidCmd[0].equalsIgnoreCase("$me:")) {
 	            	//TODO button setup wrong. Send message.
 	            	return;
-	            /*} else if (MidCmd[0].equalsIgnoreCase("$bot:")) {
-	            	sender = TcmdsBot(p);*/
+	            } else if (MidCmd[0].equalsIgnoreCase("$bot:")) {
+	            	sender = TcmdsBot(p);
 	            } else if(MidCmd[0].equalsIgnoreCase("$ply:")) {
 	            	sender = p;
 	            } else {
@@ -164,7 +193,7 @@ public class Methods {
 	        }
             plugin.getServer().dispatchCommand(sender, cmd);
         }
-    }
+    }*/
 
     /*  public Player TcmdsBot(Player p) {
     CraftServer cServer = (CraftServer) plugin.getServer();
