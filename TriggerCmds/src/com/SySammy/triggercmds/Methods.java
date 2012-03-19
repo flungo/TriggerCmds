@@ -129,32 +129,35 @@ public class Methods {
     }
     
     public void ExecuteCmd(Player p, Location loc) {
-        String get = (String)this.plugin.Cmds.get(loc);
-        String filtedCmd = "";
-        Player sender = null;
-        String[] split = get.split("/", 2);
-        if (split.length == 1) {
-          sender = p;
-          filtedCmd = split[0];
-        } else if (split[0].equalsIgnoreCase("$ply:")) {
-          sender = p;
-          filtedCmd = split[1];
-        } else if (split[0].equalsIgnoreCase("$bot:")) {
-        	sender = p;
-          //sender = TcmdsBot(p);
-          filtedCmd = split[1];
-        } else {
-          sender = this.plugin.getServer().getPlayer(split[0].replace(":", ""));
-          filtedCmd = split[1];
+    	String[] InitCmds = plugin.Cmds.get(loc).split(" & ");
+        for (int x = 0; InitCmds.length > x; x++) {
+	        String get = InitCmds[x];
+	        String filtedCmd = "";
+	        Player sender = null;
+	        String[] split = get.split("/", 2);
+	        if (split.length == 1) {
+	          sender = p;
+	          filtedCmd = split[0];
+	        } else if (split[0].equalsIgnoreCase("$ply:")) {
+	          sender = p;
+	          filtedCmd = split[1];
+	        } else if (split[0].equalsIgnoreCase("$bot:")) {
+	        	sender = p;
+	          //sender = TcmdsBot(p);
+	          filtedCmd = split[1];
+	        } else {
+	          sender = this.plugin.getServer().getPlayer(split[0].replace(":", ""));
+	          filtedCmd = split[1];
+	        }
+	        if (get.contains("$ply")) {
+	          filtedCmd = filtedCmd.replace("$ply", p.getName());
+	        }
+	        if (sender == null) {
+	          p.sendMessage(ChatColor.RED + "The owner of that trigger isn't online at the moment.");
+	          return;
+	        }
+	        sender.chat("/" + filtedCmd);
         }
-        if (get.contains("$ply")) {
-          filtedCmd = filtedCmd.replace("$ply", p.getName());
-        }
-        if (sender == null) {
-          p.sendMessage(ChatColor.RED + "The owner of that trigger isn't online at the moment.");
-          return;
-        }
-        sender.chat("/" + filtedCmd);
       }
 
     /*public void ExecuteCmd(Player p, Location loc) {
