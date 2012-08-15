@@ -9,6 +9,7 @@
 package com.SySammy.triggercmds;
 
 import com.avaje.ebean.QueryIterator;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Server;
@@ -137,10 +138,14 @@ public class Methods {
 	        String filtedCmd = "";
 	        Player sender = null;
 	        String[] split = get.split("/", 2);
+			boolean console = false;
 	        if (split.length == 1) {
 	          sender = p;
 	          filtedCmd = split[0];
 	        } else if (split[0].equalsIgnoreCase("$ply:")) {
+	          sender = p;
+	          filtedCmd = split[1];
+	        }else if (split[0].equalsIgnoreCase("$con:")) {
 	          sender = p;
 	          filtedCmd = split[1];
 	        } else if (split[0].equalsIgnoreCase("$bot:")) {
@@ -154,11 +159,15 @@ public class Methods {
 	        if (get.contains("$ply")) {
 	          filtedCmd = filtedCmd.replace("$ply", p.getName());
 	        }
-	        if (sender == null) {
+	        if (sender == null && !console) {
 	          p.sendMessage(ChatColor.RED + "The owner of that trigger isn't online at the moment.");
 	          return;
 	        }
-	        sender.chat("/" + filtedCmd);
+			if (console) {
+				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), filtedCmd);
+			} else {
+				sender.chat("/" + filtedCmd);
+			}
         }
       }
 
