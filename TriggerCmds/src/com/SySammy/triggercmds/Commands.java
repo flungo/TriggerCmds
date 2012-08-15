@@ -63,6 +63,9 @@ public class Commands implements CommandExecutor {
 				String AddCmds = Methods.GetCmds(p.getName(), arg);
 				Methods.AddCmd(p, AddCmds);
 				return true;
+            } else if (arg[0].equalsIgnoreCase("reload")) {
+                plugin.reload();
+                return true;
             } else if (arg[0].equalsIgnoreCase("del")) {
                 Methods = new Methods(plugin);
                 Methods.delTrigger(p);

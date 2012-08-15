@@ -14,7 +14,8 @@ commands:
         /<command> edit [name] - Starts trigger edit.
         /<command> set [cmd] - Sets/Replaces the command to be executed.
         /<command> add [cmd] - Adds command to command batch.
-        /<command> del - Deletes the trigger. 
+        /<command> del - Deletes the trigger.
+        /<command> reload - Reloads the plugin.
         /<command> help - TriggerCmds Help Page.  
 permissions:
     triggercmds:
