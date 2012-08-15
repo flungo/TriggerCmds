@@ -7,3 +7,4 @@ To do:
     Add a fakePlayer to overwrite permissions (tks @QuackzMcDuck )
     Link the triggers with redstone (I have to find a cool way)
     Timed commands (maybe!! I guess ^^)
+	Limit how regularly a button can be pressed.
