@@ -55,9 +55,18 @@ public class Commands implements CommandExecutor {
                 return true;
             } else if (arg[0].equalsIgnoreCase("cmd")) {
                 Methods = new Methods(plugin);
-                String GetCmds = Methods.GetCmds(p.getName(), arg);
-                Methods.RegCmd(p, GetCmds);
-                return true;
+				if (arg[1].equalsIgnoreCase("set")) {
+					String GetCmds = Methods.GetCmds(p.getName(), arg);
+					Methods.RegCmd(p, GetCmds);
+					return true;
+				} else if (arg[1].equalsIgnoreCase("set")) {
+					String AddCmds = Methods.GetCmds(p.getName(), arg);
+					Methods.AddCmd(p, AddCmds);
+					return true;
+				} else {
+					p.sendMessage("TriggerCmds has been update. You use an appropriate cmd keyword.");
+					return false;
+				}
             } else if (arg[0].equalsIgnoreCase("del")) {
                 Methods = new Methods(plugin);
                 Methods.delTrigger(p);

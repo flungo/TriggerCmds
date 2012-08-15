@@ -81,6 +81,19 @@ public class Methods {
         p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.GREEN + "Details saved to the database: " + ChatColor.GOLD + " ]");
         p.sendMessage(ChatColor.GREEN + "Command: " + ChatColor.BLUE + cmd);
     }
+	
+	public void AddCmd(Player p, String cmd) {
+		if (!IsRegOn(p)) {
+            p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "Please start the edit function first" + ChatColor.GOLD + " ]");
+            return;
+        }
+		tReg plyReg = OpenDataBase(p.getName(), plugin.iNames.get(p));
+		
+		String old_cmd = plyReg.getCmd();
+		String new_cmd = old_cmd + " & " + cmd;
+		
+		RegCmd(p,new_cmd);
+	}
 
     public void RegLocation(Player p, Location loc) {
         if (!IsRegOn(p)) {
@@ -146,7 +159,7 @@ public class Methods {
 	          sender = p;
 	          filtedCmd = split[1];
 	        }else if (split[0].equalsIgnoreCase("$con:")) {
-	          sender = p;
+	          console = true;
 	          filtedCmd = split[1];
 	        } else if (split[0].equalsIgnoreCase("$bot:")) {
 	        	sender = p;
