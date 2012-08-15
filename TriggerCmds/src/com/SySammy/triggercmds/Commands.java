@@ -53,20 +53,16 @@ public class Commands implements CommandExecutor {
                 Methods = new Methods(plugin);
                 Methods.RegEditInteraction(p, arg[1].toLowerCase());
                 return true;
-            } else if (arg[0].equalsIgnoreCase("cmd")) {
+            } else if (arg[0].equalsIgnoreCase("cmd") || arg[0].equalsIgnoreCase("set")) {
                 Methods = new Methods(plugin);
-				if (arg[1].equalsIgnoreCase("set")) {
-					String GetCmds = Methods.GetCmds(p.getName(), arg);
-					Methods.RegCmd(p, GetCmds);
-					return true;
-				} else if (arg[1].equalsIgnoreCase("set")) {
-					String AddCmds = Methods.GetCmds(p.getName(), arg);
-					Methods.AddCmd(p, AddCmds);
-					return true;
-				} else {
-					p.sendMessage("TriggerCmds has been update. You use an appropriate cmd keyword.");
-					return false;
-				}
+				String GetCmds = Methods.GetCmds(p.getName(), arg);
+				Methods.RegCmd(p, GetCmds);
+				return true;
+			} else if (arg[0].equalsIgnoreCase("add")) {
+                Methods = new Methods(plugin);
+				String AddCmds = Methods.GetCmds(p.getName(), arg);
+				Methods.AddCmd(p, AddCmds);
+				return true;
             } else if (arg[0].equalsIgnoreCase("del")) {
                 Methods = new Methods(plugin);
                 Methods.delTrigger(p);

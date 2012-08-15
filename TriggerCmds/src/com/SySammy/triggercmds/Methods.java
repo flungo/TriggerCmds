@@ -90,7 +90,10 @@ public class Methods {
 		tReg plyReg = OpenDataBase(p.getName(), plugin.iNames.get(p));
 		
 		String old_cmd = plyReg.getCmd();
-		String new_cmd = old_cmd + " & " + cmd;
+		String new_cmd = cmd;
+		if (old_cmd != null) {
+			new_cmd = old_cmd + " & " + cmd;
+		}
 		
 		RegCmd(p,new_cmd);
 	}
