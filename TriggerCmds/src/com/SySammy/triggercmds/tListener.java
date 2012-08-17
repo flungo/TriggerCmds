@@ -10,10 +10,12 @@ package com.SySammy.triggercmds;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 class tListener implements Listener {
@@ -24,6 +26,25 @@ class tListener implements Listener {
     public tListener(tCmds aThis) {
         this.plugin = aThis;
     }
+	
+	@EventHandler
+	public void onBlockBreak(BlockBreakEvent event) {
+		Block block = event.getBlock();
+		Material block_type = block.getType();
+		if (block_type.equals(Material.STONE_BUTTON) || block_type.equals(Material.LEVER) || block_type.equals(Material.STONE_PLATE) || block_type.equals(Material.WOOD_PLATE)) {
+			Player p = event.getPlayer();
+			Location loc = block.getLocation();
+			//Cancel block break if editing (avoids instabreak in creative)
+			if (plugin.iNames.containsKey(p)) {
+				event.setCancelled(true);
+			} else 
+			//Delete link if link existed
+			if (plugin.Cmds.containsKey(loc)) {
+				Methods.delLink(loc);
+			}
+		}
+			
+	}
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
