@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.persistence.PersistenceException;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -40,8 +41,8 @@ public class tCmds extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        PluginDescriptionFile pdfFile = this.getDescription();
-        logger.logMessage(pdfFile.getName() + " version " + pdfFile.getVersion() + " is disabled!");
+		disable();
+        logger.logMessage(pdf.getName() + " version " + pdf.getVersion() + " is disabled!");
     }
 
     @Override
@@ -51,12 +52,25 @@ public class tCmds extends JavaPlugin {
 		getConfig().options().copyDefaults(true);
 		saveConfig();
         getCommand("tcmds").setExecutor(new Commands(this));
-        pm.registerEvents(playerListener, this);
-        permissions.setupPermissions();
-        setupDatabase();
-        EnableInteractions();
-        logger.logMessage(pdf.getName() + " version " + pdf.getVersion() + " is enabled!");
+        if (getConfig().getBoolean("enabled")) {
+			enable();
+			logger.logMessage("Enabled.");
+		} else {
+			logger.logMessage("Disabled by config");
+		}
     }
+	
+	private void enable() {
+		pm.registerEvents(this.playerListener, this);
+		permissions.setupPermissions();
+		setupDatabase();
+        EnableInteractions();
+	}
+	
+	private void disable() {
+		HandlerList hl = new HandlerList();
+		hl.unregister(this);
+	}
 	
 	public void reload() {
 		onDisable();
