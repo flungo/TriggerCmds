@@ -45,7 +45,13 @@ class tListener implements Listener {
 				if (p.getName().equalsIgnoreCase(owner) || p.isOp()) {
 					String name = Methods.getName(loc);
 					Methods.delLink(loc);
-					p.sendMessage("You deleted the trigger for the \"" + name + "\" tcmd.");
+					String msg = "You deleted the trigger for the \"" + name + "\" tcmd";
+					if (p.getName().equalsIgnoreCase(owner)) {
+						msg = msg + " owned by " + owner + ".";
+					} else {
+						msg = msg + ".";
+					}
+					p.sendMessage(msg);
 				} else {
 					event.setCancelled(true);
 					p.sendMessage("This button has a command attached to it. Only the owner or an admin can delete it.");
