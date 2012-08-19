@@ -1,6 +1,6 @@
 name: TriggerCmds
 main: com.SySammy.triggercmds.tCmds
-version: 1.4.0
+version: 1.4.1
 author: flungo and SySammy
 database: true
 description: >

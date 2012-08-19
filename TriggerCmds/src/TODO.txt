@@ -11,3 +11,4 @@ To do:
 	Add "execute" command to execute button from anywhere
 	Add permissions for each type of button and execution
 	Levers have an on and off command
+	Expand permissions
