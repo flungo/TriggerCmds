@@ -1,3 +1,26 @@
 enabled: true
 delLinkOnBreak: true
 protectTriggers: true
+privateNames: false
+permissions:
+  default:
+    create: false
+    use: true
+    list:
+      own: true
+      all: false
+    edit:
+      own: true
+      all: false
+    set:
+      own: true
+      all: false
+    add:
+      own: true
+      all: false
+    del:
+      own: true
+      all: false
+    reload: false
+    user: false
+    admin: false

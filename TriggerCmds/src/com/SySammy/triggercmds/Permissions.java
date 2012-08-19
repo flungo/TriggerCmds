@@ -11,22 +11,22 @@ import net.milkbowl.vault.permission.Permission;
 public class Permissions {
 	public static JavaPlugin plugin;
 	
-	private static Log log;
+	protected static Log log;
 	
-	private static String prefix;
+	protected static String prefix;
 	
 	public Permissions(JavaPlugin instance, Log logger) {
 		plugin = instance;
 		log = logger;
 	}
 	
-	private static boolean op;
+	protected static boolean op;
 	
-	private static boolean bukkit;
+	protected static boolean bukkit;
 	
-	private static boolean vault;
+	protected static boolean vault;
 	
-	private static Permission vaultPermission = null;
+	protected static Permission vaultPermission = null;
 	
 	private void setupOPPermissions() {
 		if (plugin.getConfig().getBoolean("permissions.op")) {
@@ -70,7 +70,8 @@ public class Permissions {
 		}
     }
 	
-	public void setupPermissions(String nodePrefix) {
+	public final void setupPermissions(String nodePrefix) {
+		prefix = nodePrefix;
 		setupOPPermissions();
 		if (op) {
 			log.logMessage("OP permissions set up");
@@ -97,34 +98,34 @@ public class Permissions {
 		}
 	}
 	
-	public void setupPermissions() {
+	public final void setupPermissions() {
 		String nodePrefix = plugin.getDescription().getClass().toString().toLowerCase();
 		setupPermissions(nodePrefix);
 	}
 	
-	private boolean hasNode(Player p, String node) {
+	protected boolean hasNode(Player p, String node) {
 		if (bukkit && p.hasPermission(node)) return true;
 		if (vault && vaultPermission.has(p, node)) return true;
 		return false;
 	}
 	
-	public boolean hasPermission(Player p, String permission) {
+	public final boolean hasPermission(Player p, String permission) {
 		if (plugin.getConfig().getBoolean("permissions.default." + permission)) return true;
 		String node = prefix + "." + permission;
 		if (hasNode(p, node)) return true;
 		return false;
 	}
 	
-	public boolean isAdmin(Player p) {
+	public final boolean isAdmin(Player p) {
 		if (p.isOp() && op) return true;
-		String node = "voidwarp.admin";
+		String node = prefix + ".admin";
 		if (hasNode(p, node)) return true;
 		return false;
 	}
 	
 	public boolean isUser(Player p) {
 		if (!plugin.getConfig().getBoolean("enable")) return false;
-		String node = "voidwarp.user";
+		String node = prefix + ".user";
 		if (hasNode(p, node)) return true;
 		if (isAdmin(p)) return true;
 		if (!bukkit && !vault) return true;

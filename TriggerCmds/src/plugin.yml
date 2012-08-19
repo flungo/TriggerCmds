@@ -18,5 +18,55 @@ commands:
         /<command> reload - Reloads the plugin.
         /<command> help - TriggerCmds Help Page.  
 permissions:
-    triggercmds:
-        description: Allows use of all commands.
+  triggercmds:
+    description: Allows use of all commands.
+  tcmds.*:
+    description: Gives access to all commands.
+    children:
+      tcmds.user: true
+      tcmds.admin: true
+  tcmds.create:
+    description: Allows creation of triggers.
+  tcmds.use:
+    description: Allows use of triggers.
+  tcmds.list.own:
+    description: Allows user to list their own tcmds.
+  tcmds.list.all:
+    description: Allows user to list another users tcmds.
+  tcmds.edit.own:
+    description: Allows user to edit their own tcmds.
+  tcmds.edit.all:
+    description: Allows user to edit another users tcmds.
+  tcmds.set.own:
+    description: Allows user to set the command on their own tcmds.
+  tcmds.set.all:
+    description: Allows user to set the command on another users tcmds.
+  tcmds.add.own:
+    description: Allows user to add commands on their own tcmds.
+  tcmds.add.all:
+    description: Allows user to add commands on another users tcmds.
+  tcmds.del.own:
+    description: Allows user to delete their own tcmds.
+  tcmds.del.all:
+    description: Allows user to delete another users tcmds.
+  tcmds.reload:
+    description: Allows user to reload the tcmds plugin.
+  tcmds.user:
+    description: Gives user the required permissions to manage their own tcmds.
+    children:
+      tcmds.use: true
+      tcmds.create: true
+      tcmds.list.own: true
+      tcmds.edit.own: true
+      tcmds.set.own: true
+      tcmds.add.own: true
+      tcmds.del.own: true
+  tcmds.admin:
+    description: Giver user the required permissions to manage other users tcmds.
+    children:
+      tcmds.list.own: true
+      tcmds.edit.own: true
+      tcmds.set.own: true
+      tcmds.add.own: true
+      tcmds.del.own: true
+      tcmds.reload: true

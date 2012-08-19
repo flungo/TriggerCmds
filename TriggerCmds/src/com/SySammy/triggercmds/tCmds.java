@@ -33,7 +33,7 @@ public class tCmds extends JavaPlugin {
     public PluginDescriptionFile pdf;
 	
 	public final Log logger = new Log(this);
-	public final Permissions permissions = new Permissions(this, logger);
+	public final Permissions permissions = new tPermissions(this, logger);
 
     public static void main(String[] args) {
         // TODO code application logic here
