@@ -1,10 +1,10 @@
 /**
  *
- * Copyright by Samuel Castro, 2011
+ * Copyright by Samuel Castro and Fabrizio Lungo, 2011
  * All Rights Reserved
  *
  * NOTES:
- * Please do not redistribute this plugin without my permission
+ * Please do not redistribute this plugin without our permission
  */
 package com.SySammy.triggercmds;
 
