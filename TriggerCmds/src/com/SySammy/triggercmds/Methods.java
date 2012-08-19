@@ -271,4 +271,16 @@ public class Methods {
         plyReg.setWorld(" ");
         plugin.getDatabase().save(plyReg);
 	}
+	
+	public String getOwner(Location loc) {
+		tReg locReg = OpenDataBase(loc);
+		String owner = locReg.getPlayerName();
+		return owner;
+	}
+	
+	public String getName(Location loc) {
+		tReg locReg = OpenDataBase(loc);
+		String name = locReg.getIntName();
+		return name;
+	}
 }
