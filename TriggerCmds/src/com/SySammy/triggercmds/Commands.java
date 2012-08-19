@@ -25,12 +25,22 @@ public class Commands implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
-        String[] args = strings;
-        String cmd = cmnd.getName().toLowerCase();
-        if (cmd.equals("tcmds")) {
-            return BrokenMethod(cs, args);
-        }
-        return true;
+        if (plugin.getConfig().getBoolean("enabled")) {
+			String[] args = strings;
+			String cmd = cmnd.getName().toLowerCase();
+			if (cmd.equals("tcmds")) {
+				return BrokenMethod(cs, args);
+			}
+			return true;
+		} else {
+			String msg = "Trigger Commands is diabled";
+			if (cs instanceof Player) {
+				((Player)cs).sendMessage(msg);
+			} else {
+				plugin.logger.logMessage(msg);
+			}
+			return true;
+		}
     }
 
     private boolean BrokenMethod(CommandSender cs, String[] arg) {
