@@ -54,7 +54,7 @@ class tListener implements Listener {
 					p.sendMessage(msg);
 				} else {
 					event.setCancelled(true);
-					p.sendMessage("This button has a command attached to it. Only the owner or an admin can delete it.");
+					p.sendMessage("This button has a command attached to it. Only the owner or an OP can delete it.");
 				}
 			}
 		}

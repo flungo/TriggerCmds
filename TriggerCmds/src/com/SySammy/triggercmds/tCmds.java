@@ -22,12 +22,17 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class tCmds extends JavaPlugin {
-
-    private static final Logger log = Logger.getLogger("Minecraft");
+	
     public HashMap<Player, String> iNames = new HashMap<Player, String>();
     public HashMap<Location, String> Cmds = new HashMap<Location, String>();
     private tListener playerListener = new tListener(this);
     private boolean UsePermissions = true;
+	
+	public PluginManager pm;
+    public PluginDescriptionFile pdf;
+	
+	public final Log logger = new Log(this);
+	public final Permissions permissions = new Permissions(this, logger);
 
     public static void main(String[] args) {
         // TODO code application logic here
@@ -36,19 +41,21 @@ public class tCmds extends JavaPlugin {
     @Override
     public void onDisable() {
         PluginDescriptionFile pdfFile = this.getDescription();
-        log.log(Level.OFF, pdfFile.getName() + " version " + pdfFile.getVersion() + " is disabled!");
+        logger.logMessage(pdfFile.getName() + " version " + pdfFile.getVersion() + " is disabled!");
     }
 
     @Override
     public void onEnable() {
-        PluginDescriptionFile pdfFile = this.getDescription();
-        PluginManager pm = getServer().getPluginManager();
+        pm = getServer().getPluginManager();
+    	pdf = getDescription();
+		getConfig().options().copyDefaults(true);
+		saveConfig();
         getCommand("tcmds").setExecutor(new Commands(this));
         pm.registerEvents(playerListener, this);
-        // setupPermissions();
+        permissions.setupPermissions();
         setupDatabase();
         EnableInteractions();
-        log.log(Level.INFO, pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!");
+        logger.logMessage(pdf.getName() + " version " + pdf.getVersion() + " is enabled!");
     }
 	
 	public void reload() {
