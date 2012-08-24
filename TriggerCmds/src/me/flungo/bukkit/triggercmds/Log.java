@@ -1,4 +1,4 @@
-package com.SySammy.triggercmds;
+package me.flungo.bukkit.triggercmds;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

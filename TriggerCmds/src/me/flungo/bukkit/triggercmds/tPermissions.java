@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.SySammy.triggercmds;
+package me.flungo.bukkit.triggercmds;
 
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;

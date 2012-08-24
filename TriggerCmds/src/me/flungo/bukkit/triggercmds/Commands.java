@@ -6,7 +6,7 @@
  * NOTES:
  * Please do not redistribute this plugin without our permission
  */
-package com.SySammy.triggercmds;
+package me.flungo.bukkit.triggercmds;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
