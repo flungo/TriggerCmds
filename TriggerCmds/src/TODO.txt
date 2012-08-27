@@ -8,6 +8,7 @@ To do:
     Link the triggers with redstone (I have to find a cool way)
     Timed commands (maybe!! I guess ^^)
 	Limit how regularly a button can be pressed.
+	Limit how many times a player can trigger a button (with player use reset command)
 	Limit how many times a trigger can be pressed before self unlinking.
 	Add "execute" command to execute button from anywhere
 	Add permissions for each type of button and execution
