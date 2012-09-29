@@ -9,6 +9,8 @@
 package me.flungo.bukkit.triggercmds;
 
 import com.avaje.ebean.QueryIterator;
+import java.util.Calendar;
+import java.util.Date;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -282,5 +284,29 @@ public class Methods {
 		tReg locReg = OpenDataBase(loc);
 		String name = locReg.getIntName();
 		return name;
+	}
+	
+	public boolean useTrigger(Player p, Location loc){
+		tReg locReg = OpenDataBase(loc);
+		Calendar now = Calendar.getInstance();
+		int Cool = locReg.getCooldown();
+		if (Cool != 0) {
+			Calendar afterCool = Calendar.getInstance();
+			afterCool.add(Calendar.MINUTE, Cool);
+			if(now.after(afterCool)) {
+				return false;
+			}
+		}
+		int pCool = locReg.getPlayerCooldown();
+		if (pCool != 0) {
+			Calendar afterpCool = Calendar.getInstance();
+			afterpCool.add(Calendar.MINUTE, pCool);
+			if(now.after(afterpCool)) {
+				return false;
+			}
+		}
+		locReg.setLastUse(now);
+		locReg.setLastPlayerUse(p, now);
+		return true;
 	}
 }

@@ -8,11 +8,15 @@
  */
 package me.flungo.bukkit.triggercmds;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import org.bukkit.entity.Player;
 
 @Entity
@@ -33,8 +37,10 @@ public class tReg {
 	private int MaxPlayerUses;
 	private HashMap<Player, Integer> PlayerUses = new HashMap<Player, Integer>();
 	private int Cooldown;
-	private int LastUse;
-	private HashMap<Player, Integer> LastPlayerUse = new HashMap<Player, Integer>();
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar LastUse;
+	private int PlayerCooldown;
+	private HashMap<Player, Calendar> LastPlayerUse = new HashMap<Player, Calendar>();
 
     public int getInteractionId() {
         return InteractionId;
@@ -124,27 +130,35 @@ public class tReg {
 		this.PlayerUses.put(p, u);
 	}
 	
-	public int getLastUse() {
-		return MaxUses;
+	public Calendar getLastUse() {
+		return LastUse;
+	}
+	
+	public void setLastUse(Calendar LastUse) {
+		this.LastUse = LastUse;
 	}
 
     public void setCooldown(int Cooldown) {
         this.Cooldown = Cooldown;
     }
 	
-	public int getCooldown(Player p) {
-		return LastPlayerUse.get(p);
+	public int getCooldown() {
+		return Cooldown;
 	}
 
-    public void setLastUse(int LastUse) {
-        this.LastUse = LastUse;
+    public void setPlayerCooldown(int Cooldown) {
+        this.PlayerCooldown = Cooldown;
     }
 	
-	public int getLastPlayerUse(Player p) {
+	public int getPlayerCooldown() {
+		return PlayerCooldown;
+	}
+	
+	public Calendar getLastPlayerUse(Player p) {
 		return LastPlayerUse.get(p);
 	}
 	
-	public void setLastPlayerUse(Player p, int u) {
+	public void setLastPlayerUse(Player p, Calendar u) {
 		this.LastPlayerUse.put(p, u);
 	}
 }
