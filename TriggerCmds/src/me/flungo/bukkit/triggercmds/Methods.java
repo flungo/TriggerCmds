@@ -289,11 +289,15 @@ public class Methods {
 	public boolean useTrigger(Player p, Location loc){
 		tReg locReg = OpenDataBase(loc);
         int Uses = locReg.getUses();
-        if (Uses > locReg.getMaxUses()) {
+        int MaxUses = locReg.getMaxUses();
+        if (MaxUses != 0 && Uses > MaxUses) {
+            p.sendMessage("Sorry but the max uses of this trigger has been reached.");
             return false;
         }
         int PlayerUses = locReg.getPlayerUses(p);
-        if (PlayerUses > locReg.getMaxPlayerUses()) {
+        int MaxPlayerUses = locReg.getMaxPlayerUses();
+        if (MaxPlayerUses != 0 && PlayerUses > MaxPlayerUses) {
+            p.sendMessage("Sorry but you have reached your max uses of this trigger.");
             return false;
         }
 		Calendar now = Calendar.getInstance();
@@ -302,6 +306,7 @@ public class Methods {
 			Calendar afterCool = Calendar.getInstance();
 			afterCool.add(Calendar.MINUTE, Cool);
 			if(now.after(afterCool)) {
+                p.sendMessage("Sorry this button cannot be pressed right now, please try again later.");
 				return false;
 			}
 		}
@@ -310,6 +315,7 @@ public class Methods {
 			Calendar afterpCool = Calendar.getInstance();
 			afterpCool.add(Calendar.MINUTE, pCool);
 			if(now.after(afterpCool)) {
+                p.sendMessage("Sorry you can't press this button right now, please try again later.");
 				return false;
 			}
 		}
