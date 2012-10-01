@@ -35,6 +35,7 @@ public class tReg {
     private double z;
 	private int MaxUses;
     private int Uses;
+    private boolean Unlink;
 	private int MaxPlayerUses;
 	private HashMap<Player, Integer> PlayerUses = new HashMap<Player, Integer>();
 	private int Cooldown;
@@ -121,6 +122,14 @@ public class tReg {
 
     public void setUses(int Uses) {
         this.Uses = Uses;
+    }
+	
+	public boolean getUnlink() {
+		return Unlink;
+	}
+
+    public void setUnlink(boolean Unlink) {
+        this.Unlink = Unlink;
     }
 	
 	public int getMaxPlayerUses() {
