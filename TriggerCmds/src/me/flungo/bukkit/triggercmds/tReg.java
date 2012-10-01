@@ -43,6 +43,8 @@ public class tReg {
 	private Calendar LastUse;
 	private int PlayerCooldown;
 	private HashMap<Player, Calendar> LastPlayerUse = new HashMap<Player, Calendar>();
+    private boolean UnlinkOnBreak;
+    private boolean BreakOnUnlink;
 
     public int getInteractionId() {
         return InteractionId;
