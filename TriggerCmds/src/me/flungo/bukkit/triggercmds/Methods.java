@@ -173,12 +173,8 @@ public class Methods {
 	        } else if (split[0].equalsIgnoreCase("$ply:")) {
 	          sender = p;
 	          filtedCmd = split[1];
-	        }else if (split[0].equalsIgnoreCase("$con:")) {
+	        } else if (split[0].equalsIgnoreCase("$con:")) {
 	          console = true;
-	          filtedCmd = split[1];
-	        } else if (split[0].equalsIgnoreCase("$bot:")) {
-	        	sender = p;
-	          //sender = TcmdsBot(p);
 	          filtedCmd = split[1];
 	        } else {
 	          sender = this.plugin.getServer().getPlayer(split[0].replace(":", ""));
@@ -198,20 +194,6 @@ public class Methods {
 			}
         }
       }
-
-    /*public Player TcmdsBot(Player p) {
-    Server Server = plugin.getServer();
-    World World = p.getWorld();
-    Player fakeEntityPlayer = new Player(Server.getHandle().server,
-    World.getHandle(), "tcmdsbot", new ItemInWorldManager(cWorld.getHandle()));
-    fakeEntityPlayer.netServerHandler = ((CraftPlayer) p).getHandle().netServerHandler;
-    Player TcmdsBot = (Player) fakeEntityPlayer.getBukkitEntity();
-    TcmdsBot.setDisplayName("tcmdsbot");
-    ((CraftPlayer) TcmdsBot).getHandle().name = "tcmdsbot";
-    TcmdsBot.saveData();
-    TcmdsBot.loadData();
-    return TcmdsBot;
-    }*/
     
     public Location getLoc(Player p) {
         try {
