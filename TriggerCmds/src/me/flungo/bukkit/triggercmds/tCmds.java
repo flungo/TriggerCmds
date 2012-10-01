@@ -35,10 +35,6 @@ public class tCmds extends JavaPlugin {
 	public final Log logger = new Log(this);
 	public final Permissions permissions = new tPermissions(this, logger);
 
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
-
     @Override
     public void onDisable() {
 		disable();
