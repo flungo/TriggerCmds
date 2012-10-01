@@ -15,3 +15,4 @@ To do:
 	Expand permissions
 	Add configuration
 	Batch import from file (yml array)
+    Check all tReg fields are used and implemented fully.
