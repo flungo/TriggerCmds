@@ -288,15 +288,15 @@ public class Methods {
 	
 	public boolean useTrigger(Player p, Location loc){
 		tReg locReg = OpenDataBase(loc);
-        int Uses = locReg.getUses();
+        int Use = locReg.getUses() + 1;
         int MaxUses = locReg.getMaxUses();
-        if (MaxUses != 0 && Uses > MaxUses) {
+        if (MaxUses != 0 && Use > MaxUses) {
             p.sendMessage("Sorry but the max uses of this trigger has been reached.");
             return false;
         }
-        int PlayerUses = locReg.getPlayerUses(p);
+        int PlayerUse = locReg.getPlayerUses(p) + 1;
         int MaxPlayerUses = locReg.getMaxPlayerUses();
-        if (MaxPlayerUses != 0 && PlayerUses > MaxPlayerUses) {
+        if (MaxPlayerUses != 0 && PlayerUse > MaxPlayerUses) {
             p.sendMessage("Sorry but you have reached your max uses of this trigger.");
             return false;
         }
@@ -319,10 +319,17 @@ public class Methods {
 				return false;
 			}
 		}
-        locReg.setUses(Uses + 1);
-        locReg.setPlayerUses(p, PlayerUses + 1);
+        
+        //All checks passed trigger can be used. Execute command, update database and check if link should be deleted.
+        locReg.setUses(Use);
+        locReg.setPlayerUses(p, PlayerUse);
 		locReg.setLastUse(now);
 		locReg.setLastPlayerUse(p, now);
+        
+        //If this is the last use and the trigger is set to unlink, unlink the trigger
+        if (Use == MaxUses && locReg.getUnlink()) {
+            this.delLink(loc);
+        }
 		return true;
 	}
 }
