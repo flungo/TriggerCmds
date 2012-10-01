@@ -288,6 +288,14 @@ public class Methods {
 	
 	public boolean useTrigger(Player p, Location loc){
 		tReg locReg = OpenDataBase(loc);
+        int Uses = locReg.getUses();
+        if (Uses > locReg.getMaxUses()) {
+            return false;
+        }
+        int PlayerUses = locReg.getPlayerUses(p);
+        if (PlayerUses > locReg.getMaxPlayerUses()) {
+            return false;
+        }
 		Calendar now = Calendar.getInstance();
 		int Cool = locReg.getCooldown();
 		if (Cool != 0) {
@@ -305,6 +313,8 @@ public class Methods {
 				return false;
 			}
 		}
+        locReg.setUses(Uses + 1);
+        locReg.setPlayerUses(p, PlayerUses + 1);
 		locReg.setLastUse(now);
 		locReg.setLastPlayerUse(p, now);
 		return true;

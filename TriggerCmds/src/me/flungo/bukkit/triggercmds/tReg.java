@@ -34,6 +34,7 @@ public class tReg {
     private double y;
     private double z;
 	private int MaxUses;
+    private int Uses;
 	private int MaxPlayerUses;
 	private HashMap<Player, Integer> PlayerUses = new HashMap<Player, Integer>();
 	private int Cooldown;
@@ -112,6 +113,14 @@ public class tReg {
 
     public void setMaxUses(int MaxUses) {
         this.MaxUses = MaxUses;
+    }
+	
+	public int getUses() {
+		return Uses;
+	}
+
+    public void setUses(int Uses) {
+        this.Uses = Uses;
     }
 	
 	public int getMaxPlayerUses() {
