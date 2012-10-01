@@ -63,7 +63,7 @@ public class Commands implements CommandExecutor {
                 Methods = new Methods(plugin);
                 Methods.RegEditInteraction(p, arg[1].toLowerCase());
                 return true;
-            } else if (arg[0].equalsIgnoreCase("cmd") || arg[0].equalsIgnoreCase("set")) {
+            } else if (arg[0].equalsIgnoreCase("set")) {
                 Methods = new Methods(plugin);
 				String GetCmds = Methods.GetCmds(p.getName(), arg);
 				Methods.RegCmd(p, GetCmds);
