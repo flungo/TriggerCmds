@@ -2,6 +2,7 @@ enabled: true
 delLinkOnBreak: true
 protectTriggers: true
 privateNames: false
+perTriggerPerms: false
 permissions:
   default:
     create: false
