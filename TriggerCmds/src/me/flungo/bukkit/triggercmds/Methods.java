@@ -136,7 +136,7 @@ public class Methods {
 
     public String GetCmds(String p, String[] arg) {
     String cmd = "";
-    for (int x = 1; x < arg.length; x++) {
+    for (int x = 2; x < arg.length; x++) {
     cmd = cmd + " " + arg[x];
     }
     String replace = "";

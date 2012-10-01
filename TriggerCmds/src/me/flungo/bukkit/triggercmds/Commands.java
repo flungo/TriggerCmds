@@ -68,13 +68,29 @@ public class Commands implements CommandExecutor {
                     String GetCmds = Methods.GetCmds(p.getName(), arg);
                     Methods.RegCmd(p, GetCmds);
                     return true; 
+                } else if (arg[1].equalsIgnoreCase("uses")) {
+                    
+                } else if (arg[1].equalsIgnoreCase("unlink")) {
+                    
+                } else if (arg[1].equalsIgnoreCase("puses")) {
+                    
+                } else if (arg[1].equalsIgnoreCase("cooldown")) {
+                    
+                } else if (arg[1].equalsIgnoreCase("pcooldown")) {
+                    
+                } else if (arg[1].equalsIgnoreCase("unlinkonbreak")) {
+                    
+                } else if (arg[1].equalsIgnoreCase("breakonunlink")) {
+                    
                 }
-
 			} else if (arg[0].equalsIgnoreCase("add")) {
-				String AddCmds = Methods.GetCmds(p.getName(), arg);
-				Methods.AddCmd(p, AddCmds);
-				return true;
-            } else if (arg[0].equalsIgnoreCase("reload")) {
+                if (arg[1].equalsIgnoreCase("cmd")) {
+                    String AddCmds = Methods.GetCmds(p.getName(), arg);
+                    Methods.AddCmd(p, AddCmds);
+                    return true;
+                }
+            } //Add reset command
+            else if (arg[0].equalsIgnoreCase("reload")) {
                 plugin.reload();
                 return true;
             } else if (arg[0].equalsIgnoreCase("del")) {
