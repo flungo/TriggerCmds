@@ -69,21 +69,21 @@ public class Commands implements CommandExecutor {
                     Methods.RegCmd(p, GetCmds);
                     return true; 
                 } else if (arg[1].equalsIgnoreCase("uses")) {
-                    
+                    Methods.RegUses(p, arg[2]);
                 } else if (arg[1].equalsIgnoreCase("unlink")) {
-                    
+                    //TODO
                 } else if (arg[1].equalsIgnoreCase("puses")) {
-                    
+                    //TODO
                 } else if (arg[1].equalsIgnoreCase("cooldown")) {
-                    
+                    //TODO
                 } else if (arg[1].equalsIgnoreCase("pcooldown")) {
-                    
+                    //TODO
                 } else if (arg[1].equalsIgnoreCase("unlinkonbreak")) {
-                    
+                    //TODO
                 } else if (arg[1].equalsIgnoreCase("breakonunlink")) {
-                    
+                    //TODO
                 }
-			} else if (arg[0].equalsIgnoreCase("add")) {
+            } else if (arg[0].equalsIgnoreCase("add")) {
                 if (arg[1].equalsIgnoreCase("cmd")) {
                     String AddCmds = Methods.GetCmds(p.getName(), arg);
                     Methods.AddCmd(p, AddCmds);

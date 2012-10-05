@@ -5,15 +5,15 @@ To do:
     onBreak deletes link
     Link the triggers with redstone (I have to find a cool way)
     Timed commands (maybe!! I guess ^^)
-	Limit how many times a player can trigger a button (with player use reset command)
-	Limit how many times a trigger can be pressed before self unlinking. Variable to choose if button unlinks or stops executing
-	Add "execute" command to execute button from anywhere
-	Add permissions for each type of button and execution
+    Limit how many times a player can trigger a button (with player use reset command)
+    Limit how many times a trigger can be pressed before self unlinking. Variable to choose if button unlinks or stops executing
+    Add "execute" command to execute button from anywhere
+    Add permissions for each type of button and execution
     Add per trigger perms (tcmds.use.<trigger_name>)
-	Levers have an on and off command
-	Expand permissions
-	Add configuration
-	Batch import from file (yml array)
+    Levers have an on and off command
+    Expand permissions
+    Add configuration
+    Batch import from file (yml array)
     Check all tReg fields are used and implemented fully.
     User groups (I might put it... still not sure) (tks @QuackzMcDuck )
         - I assume this meant a different command for each group

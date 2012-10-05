@@ -93,7 +93,29 @@ public class Methods {
         p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.GREEN + "Details saved to the database: " + ChatColor.GOLD + " ]");
         p.sendMessage(ChatColor.GREEN + "Command: " + ChatColor.BLUE + cmd);
     }
-	
+    
+    public void RegUses(Player p, String input) {
+        try {
+            int uses = Integer.parseInt(input);
+            RegUses(p, uses);
+        } catch (Exception e) {
+            p.sendMessage("Max uses must be a valid integer.");
+        }
+    }
+    public void RegUses(Player p, int uses) {
+        if (!IsRegOn(p)) {
+            p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "Please start the edit function first" + ChatColor.GOLD + " ]");
+            return;
+        }
+        //Uses cannot be less than 0
+        if (uses < 0) {
+            p.sendMessage("Max uses must be a positive integer.");
+            return;
+        }
+        
+        tReg plyReg = OpenDataBase(p.getName(), plugin.iNames.get(p));
+        plyReg.setUses(uses);
+    }
 	public void AddCmd(Player p, String cmd) {
 		if (!IsRegOn(p)) {
             p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "Please start the edit function first" + ChatColor.GOLD + " ]");
