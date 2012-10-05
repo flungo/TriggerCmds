@@ -70,18 +70,25 @@ public class Commands implements CommandExecutor {
                     return true; 
                 } else if (arg[1].equalsIgnoreCase("uses")) {
                     Methods.RegUses(p, arg[2]);
+                    return true; 
                 } else if (arg[1].equalsIgnoreCase("unlink")) {
                     Methods.RegUnlink(p, arg[2]);
+                    return true; 
                 } else if (arg[1].equalsIgnoreCase("puses")) { //Player uses
                     Methods.RegPUses(p, arg[2]);
+                    return true; 
                 } else if (arg[1].equalsIgnoreCase("cooldown")) {
                     Methods.RegCooldown(p, arg[2]);
+                    return true; 
                 } else if (arg[1].equalsIgnoreCase("pcooldown")) {
-                    //TODO
+                    Methods.RegPlayerCooldown(p, arg[2]);
+                    return true; 
                 } else if (arg[1].equalsIgnoreCase("unlinkonbreak")) {
                     //TODO
+                    return true; 
                 } else if (arg[1].equalsIgnoreCase("breakonunlink")) {
                     //TODO
+                    return true; 
                 }
             } else if (arg[0].equalsIgnoreCase("add")) {
                 if (arg[1].equalsIgnoreCase("cmd")) {

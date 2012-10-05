@@ -171,7 +171,7 @@ public class Methods {
             p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "Please start the edit function first" + ChatColor.GOLD + " ]");
             return;
         }
-        //Uses cannot be less than 0
+        //Cooldown time cannot be less than 0
         if (cool < 0) {
             p.sendMessage("Cooldown time must be a positive integer.");
             return;
@@ -179,6 +179,29 @@ public class Methods {
         
         tReg plyReg = OpenDataBase(p.getName(), plugin.iNames.get(p));
         plyReg.setCooldown(cool);
+    }
+    
+    public void RegPlayerCooldown(Player p, String input) {
+        try {
+            int pcool = Integer.parseInt(input);
+            RegCooldown(p, pcool);
+        } catch (Exception e) {
+            p.sendMessage("Player cooldown time must be a valid integer.");
+        }
+    }
+    public void RegPlayerCooldown(Player p, int pcool) {
+        if (!IsRegOn(p)) {
+            p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "Please start the edit function first" + ChatColor.GOLD + " ]");
+            return;
+        }
+        //Player cooldown time cannot be less than 0
+        if (pcool < 0) {
+            p.sendMessage("Player cooldown time must be a positive integer.");
+            return;
+        }
+        
+        tReg plyReg = OpenDataBase(p.getName(), plugin.iNames.get(p));
+        plyReg.setCooldown(pcool);
     }
 	public void AddCmd(Player p, String cmd) {
 		if (!IsRegOn(p)) {
