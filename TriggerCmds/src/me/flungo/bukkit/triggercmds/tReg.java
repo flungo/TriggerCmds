@@ -181,4 +181,12 @@ public class tReg {
 	public void setLastPlayerUse(Player p, Calendar u) {
 		this.LastPlayerUse.put(p, u);
 	}
+	
+	public boolean getUnlinkOnBreak() {
+		return UnlinkOnBreak;
+	}
+
+    public void setUnlinkOnBreak(boolean Unlink) {
+        this.UnlinkOnBreak = Unlink;
+    }
 }
