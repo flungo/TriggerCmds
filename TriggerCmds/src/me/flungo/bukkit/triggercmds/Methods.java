@@ -134,6 +134,29 @@ public class Methods {
         tReg plyReg = OpenDataBase(p.getName(), plugin.iNames.get(p));
         plyReg.setUnlink(unlink);
     }
+    
+    public void RegPUses(Player p, String input) {
+        try {
+            int uses = Integer.parseInt(input);
+            RegPUses(p, uses);
+        } catch (Exception e) {
+            p.sendMessage("Max player uses must be a valid integer.");
+        }
+    }
+    public void RegPUses(Player p, int puses) {
+        if (!IsRegOn(p)) {
+            p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "Please start the edit function first" + ChatColor.GOLD + " ]");
+            return;
+        }
+        //Uses cannot be less than 0
+        if (puses < 0) {
+            p.sendMessage("Max player uses must be a positive integer.");
+            return;
+        }
+        
+        tReg plyReg = OpenDataBase(p.getName(), plugin.iNames.get(p));
+        plyReg.s(puses);
+    }
 	public void AddCmd(Player p, String cmd) {
 		if (!IsRegOn(p)) {
             p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "Please start the edit function first" + ChatColor.GOLD + " ]");

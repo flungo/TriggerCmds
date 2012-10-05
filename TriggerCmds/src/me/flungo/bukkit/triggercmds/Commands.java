@@ -73,7 +73,7 @@ public class Commands implements CommandExecutor {
                 } else if (arg[1].equalsIgnoreCase("unlink")) {
                     Methods.RegUnlink(p, arg[2]);
                 } else if (arg[1].equalsIgnoreCase("puses")) { //Player uses
-                    //TODO
+                    Methods.RegPUses(p, arg[2]);
                 } else if (arg[1].equalsIgnoreCase("cooldown")) {
                     //TODO
                 } else if (arg[1].equalsIgnoreCase("pcooldown")) {
