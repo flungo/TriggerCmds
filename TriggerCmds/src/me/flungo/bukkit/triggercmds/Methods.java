@@ -114,7 +114,7 @@ public class Methods {
         }
         
         tReg plyReg = OpenDataBase(p.getName(), plugin.iNames.get(p));
-        plyReg.setUses(uses);
+        plyReg.setMaxUses(uses);
     }
     
     public void RegUnlink(Player p, String input) {
@@ -155,7 +155,7 @@ public class Methods {
         }
         
         tReg plyReg = OpenDataBase(p.getName(), plugin.iNames.get(p));
-        plyReg.s(puses);
+        plyReg.setMaxPlayerUses(puses);
     }
 	public void AddCmd(Player p, String cmd) {
 		if (!IsRegOn(p)) {
