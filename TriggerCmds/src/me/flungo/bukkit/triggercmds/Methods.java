@@ -222,6 +222,24 @@ public class Methods {
         plyReg.setUnlinkOnBreak(unlink);
     }
     
+    public void RegBreakOnUnlink(Player p, String input) {
+        try {
+            boolean Break = Boolean.parseBoolean(input);
+            RegUnlink(p, Break);
+        } catch (Exception e) {
+            p.sendMessage("Please use 'true' or 'false'");
+        }
+    }
+    public void RegBreakOnUnlink(Player p, boolean Break) {
+        if (!IsRegOn(p)) {
+            p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "Please start the edit function first" + ChatColor.GOLD + " ]");
+            return;
+        }
+        
+        tReg plyReg = OpenDataBase(p.getName(), plugin.iNames.get(p));
+        plyReg.setUnlinkOnBreak(Break);
+    }
+    
 	public void AddCmd(Player p, String cmd) {
 		if (!IsRegOn(p)) {
             p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "Please start the edit function first" + ChatColor.GOLD + " ]");

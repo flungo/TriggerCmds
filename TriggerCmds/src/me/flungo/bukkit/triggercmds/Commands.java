@@ -87,7 +87,7 @@ public class Commands implements CommandExecutor {
                     Methods.RegUnlinkOnBreak(p, arg[2]);
                     return true;
                 } else if (arg[1].equalsIgnoreCase("breakonunlink")) {
-                    //TODO
+                    Methods.RegBreakOnUnlink(p, arg[2]);
                     return true;
                 }
             } else if (arg[0].equalsIgnoreCase("add")) {

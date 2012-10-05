@@ -189,4 +189,12 @@ public class tReg {
     public void setUnlinkOnBreak(boolean Unlink) {
         this.UnlinkOnBreak = Unlink;
     }
+	
+	public boolean getBreakOnUnlink() {
+		return BreakOnUnlink;
+	}
+
+    public void setBreakOnUnlink(boolean Unlink) {
+        this.BreakOnUnlink = Unlink;
+    }
 }
