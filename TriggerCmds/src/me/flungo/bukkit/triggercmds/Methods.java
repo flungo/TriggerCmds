@@ -116,6 +116,24 @@ public class Methods {
         tReg plyReg = OpenDataBase(p.getName(), plugin.iNames.get(p));
         plyReg.setUses(uses);
     }
+    
+    public void RegUnlink(Player p, String input) {
+        try {
+            boolean unlink = Boolean.parseBoolean(input);
+            RegUnlink(p, unlink);
+        } catch (Exception e) {
+            p.sendMessage("Please use 'true' or 'false'");
+        }
+    }
+    public void RegUnlink(Player p, boolean unlink) {
+        if (!IsRegOn(p)) {
+            p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "Please start the edit function first" + ChatColor.GOLD + " ]");
+            return;
+        }
+        
+        tReg plyReg = OpenDataBase(p.getName(), plugin.iNames.get(p));
+        plyReg.setUnlink(unlink);
+    }
 	public void AddCmd(Player p, String cmd) {
 		if (!IsRegOn(p)) {
             p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "Please start the edit function first" + ChatColor.GOLD + " ]");
