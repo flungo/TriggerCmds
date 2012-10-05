@@ -137,8 +137,8 @@ public class Methods {
     
     public void RegPUses(Player p, String input) {
         try {
-            int uses = Integer.parseInt(input);
-            RegPUses(p, uses);
+            int puses = Integer.parseInt(input);
+            RegPUses(p, puses);
         } catch (Exception e) {
             p.sendMessage("Max player uses must be a valid integer.");
         }
@@ -156,6 +156,29 @@ public class Methods {
         
         tReg plyReg = OpenDataBase(p.getName(), plugin.iNames.get(p));
         plyReg.setMaxPlayerUses(puses);
+    }
+    
+    public void RegCooldown(Player p, String input) {
+        try {
+            int cool = Integer.parseInt(input);
+            RegCooldown(p, cool);
+        } catch (Exception e) {
+            p.sendMessage("Cooldown time must be a valid integer.");
+        }
+    }
+    public void RegCooldown(Player p, int cool) {
+        if (!IsRegOn(p)) {
+            p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "Please start the edit function first" + ChatColor.GOLD + " ]");
+            return;
+        }
+        //Uses cannot be less than 0
+        if (cool < 0) {
+            p.sendMessage("Cooldown time must be a positive integer.");
+            return;
+        }
+        
+        tReg plyReg = OpenDataBase(p.getName(), plugin.iNames.get(p));
+        plyReg.setCooldown(cool);
     }
 	public void AddCmd(Player p, String cmd) {
 		if (!IsRegOn(p)) {
