@@ -1,5 +1,5 @@
 name: TriggerCmds
-main: com.SySammy.triggercmds.tCmds
+main: me.flungo.bukkit.triggercmds.tCmds
 version: 1.4.1
 author: flungo and SySammy
 database: true
