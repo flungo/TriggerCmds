@@ -29,6 +29,18 @@ public class Methods
     return persistenceClass;
   }
 
+  private tReg OpenDataBase(Location loc) {
+    String world = loc.getWorld().getName();
+    String x = Double.toString(loc.getX());
+    String y = Double.toString(loc.getY());
+    String z = Double.toString(loc.getZ());
+    tReg persistenceClass = (tReg)this.plugin.getDatabase().find(tReg.class).where().ieq("world", world).ieq("x", x).ieq("y", y).ieq("z", z).findUnique();
+    if (persistenceClass == null) {
+      persistenceClass = new tReg();
+    }
+    return persistenceClass;
+  }
+
   private boolean iNameExist(String p, String iName) {
     tReg persistenceClass = (tReg)this.plugin.getDatabase().find(tReg.class).where().ieq("PlayerName", p).ieq("intName", iName).findUnique();
 
@@ -228,11 +240,32 @@ public class Methods
       p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "Please start the edit function first" + ChatColor.GOLD + " ]");
       return;
     }
-    this.plugin.Cmds.remove(getLoc(p));
     tReg plyReg = OpenDataBase(p.getName(), (String)this.plugin.iNames.get(p));
-    plyReg.setWorld(" ");
-    this.plugin.getDatabase().save(plyReg);
+    delLink(getLoc(p), plyReg);
     p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.GREEN + "Link deleted, your trigger no longer has a location" + ChatColor.GOLD + " ]");
     DelRegState(p);
+  }
+
+  public void delLink(Location loc) {
+    tReg locReg = OpenDataBase(loc);
+    delLink(loc, locReg);
+  }
+
+  public void delLink(Location loc, tReg plyReg) {
+    this.plugin.Cmds.remove(loc);
+    plyReg.setWorld(" ");
+    this.plugin.getDatabase().save(plyReg);
+  }
+
+  public String getOwner(Location loc) {
+    tReg locReg = OpenDataBase(loc);
+    String owner = locReg.getPlayerName();
+    return owner;
+  }
+
+  public String getName(Location loc) {
+    tReg locReg = OpenDataBase(loc);
+    String name = locReg.getIntName();
+    return name;
   }
 }
