@@ -9,7 +9,6 @@
 package me.flungo.bukkit.triggercmds;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

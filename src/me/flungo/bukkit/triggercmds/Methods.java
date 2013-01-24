@@ -10,7 +10,6 @@ package me.flungo.bukkit.triggercmds;
 
 import com.avaje.ebean.QueryIterator;
 import java.util.Calendar;
-import java.util.Date;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

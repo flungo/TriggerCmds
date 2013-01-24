@@ -1,12 +1,10 @@
 package me.flungo.bukkit.triggercmds;
 
 import java.util.logging.Level;
-
+import net.milkbowl.vault.permission.Permission;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import net.milkbowl.vault.permission.Permission;
 
 public class Permissions {
 	public static JavaPlugin plugin;
