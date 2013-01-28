@@ -8,6 +8,7 @@
  */
 package me.flungo.bukkit.triggercmds;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.HashMap;
 import javax.persistence.Entity;
@@ -20,7 +21,7 @@ import org.bukkit.entity.Player;
 
 @Entity
 @Table(name = "TriggerCmds")
-public class tReg {
+public class tReg implements Serializable {
 
     @Id
     @GeneratedValue
