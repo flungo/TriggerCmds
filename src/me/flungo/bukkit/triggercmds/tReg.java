@@ -37,12 +37,12 @@ public class tReg implements Serializable {
     private int Uses;
     private boolean Unlink;
 	private int MaxPlayerUses;
-	private HashMap<Player, Integer> PlayerUses = new HashMap<Player, Integer>();
+	private HashMap<Player, Integer> PlayerUses = new HashMap<>();
 	private int Cooldown;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar LastUse;
 	private int PlayerCooldown;
-	private HashMap<Player, Calendar> LastPlayerUse = new HashMap<Player, Calendar>();
+	private HashMap<Player, Calendar> LastPlayerUse = new HashMap<>();
     private boolean UnlinkOnBreak;
     private boolean BreakOnUnlink;
 
