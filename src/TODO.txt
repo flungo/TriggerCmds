@@ -12,3 +12,4 @@ To do:
 	Add permissions for each type of button and execution
 	Levers have an on and off command
 	Expand permissions
+	Add sleep:[time] functions
