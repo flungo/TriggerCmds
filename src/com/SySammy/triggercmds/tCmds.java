@@ -1,10 +1,6 @@
 package com.SySammy.triggercmds;
 
-import com.avaje.ebean.EbeanServer;
-import com.avaje.ebean.ExpressionList;
-import com.avaje.ebean.Query;
 import com.avaje.ebean.QueryIterator;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,8 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.PersistenceException;
 import org.bukkit.Location;
-import org.bukkit.Server;
-import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;

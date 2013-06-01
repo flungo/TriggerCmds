@@ -1,15 +1,9 @@
 package com.SySammy.triggercmds;
 
-import com.avaje.ebean.EbeanServer;
-import com.avaje.ebean.ExpressionList;
-import com.avaje.ebean.Query;
 import com.avaje.ebean.QueryIterator;
-import java.util.HashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.Server;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 public class Methods
